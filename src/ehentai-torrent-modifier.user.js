@@ -108,7 +108,7 @@ function parseTorrentInfo(xmlDocument) {
       name: link.innerText
     };
     fields = forms[i].getElementsByTagName("td");
-    for (var j = 0; j < fields.length; j++) {
+    for (j = 0; j < fields.length; j++) {
       matches = fields[j].innerHTML.match(property);
       if (matches) {
         torrents[i][matches[1].toLocaleLowerCase()] = matches[2];
@@ -128,8 +128,12 @@ function getTorrentsSorted() {
           return parseSize(b.size) - parseSize(a.size);
         });
       }
+      return gallery.torrents.sort(function (a, b) {
+        return parseSize(a.size) - parseSize(b.size);
+      });
     default:
       key = "downloads";
+      //fallthrough
     case "seeds":
     case "peers":
     case "downloads":
